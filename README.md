@@ -129,3 +129,5 @@ Now, Inkwrite is stable, clean, and production-ready 🚀
 
 Waqas Ali
 Full-Stack Developer (MERN + Appwrite)
+status
+slug✅ **Solution:** Updated schema with:
