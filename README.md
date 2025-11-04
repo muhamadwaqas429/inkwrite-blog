@@ -1,16 +1,131 @@
-# React + Vite
+# 🖋️ Inkwrite – Full Blogging App (React + Appwrite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **fully functional blogging application** built using **React, Appwrite, Redux**, and **Tailwind CSS**.  
+It includes secure authentication, post management, image hosting, and a complete CMS-like workflow — all connected to Appwrite Cloud.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
+🔗 **Coming Soon...**
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ⚙️ Tech Stack
 
-## Expanding the ESLint configuration
+### 🧩 Frontend
+- ⚛️ React (Vite)
+- 🎨 Tailwind CSS
+- 🧠 Redux Toolkit
+- 📝 React Hook Form
+- 🧭 React Router DOM
+- ✍️ Rich Text Editor
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 💾 Backend
+- ☁️ Appwrite Cloud
+- 🗃️ Databases
+- 🧱 Storage Buckets
+- 🔐 Authentication
+
+---
+
+## 🚀 Features
+
+### 🔑 Authentication
+- Login / Signup  
+- Protected routes  
+- Session-based access  
+
+### 📝 Post Management
+- Create / Edit / Delete posts  
+- Auto-slug generation  
+- Rich Text Editor with preview  
+- Author-only edit access  
+
+### 🖼️ Image Uploading
+- Upload to Appwrite Storage  
+- Public file access (`Role.any().read()`)  
+- Auto-delete old image on update  
+
+### 🧠 Database Integration
+- Custom document ID (slug)  
+- Query posts by status  
+- Secure role-based access  
+
+### 💎 UI / UX
+- Clean, minimal dashboard  
+- Responsive Home & Detail pages  
+- Mobile-friendly layout  
+
+---
+
+## 🧠 Journey & What We Solved
+
+This project went through **real-world debugging** and backend integration challenges.  
+Here’s what we learned and fixed along the way 👇
+
+### 1️⃣ Incorrect Schema – *Fixed*
+
+Appwrite rejected documents due to mismatched fields.  
+title
+content
+featuredimage
+userid
+
+
+### 2️⃣ Slug Conflicts / Missing Slugs – *Fixed*
+❌ Error: *“Missing required attribute slug”*  
+✅ Added slug field to schema, used slug as document ID, and auto-generated it from title.
+
+### 3️⃣ Images Uploaded but Not Showing – *Fixed*
+Issues caused by:
+- Missing bucket permissions  
+- Wrong preview URLs  
+- File security misconfigurations  
+
+✅ Solution:
+- Enabled Bucket & File security  
+- Set correct permissions:
+  - `Role.any().read()`
+  - `Role.user(id).update()`
+  - `Role.user(id).delete()`
+
+✅ Now images load perfectly across Home, PostCard, and Detail views.
+
+### 4️⃣ Post Creation Failing – *Fixed*
+❌ Button wasn’t submitting due to missing `type="submit"`.  
+✅ Fixed by updating the Button component.
+
+### 5️⃣ Routing & UI Rendering – *Fixed*
+Incorrect use of `post.slug` and `$id`.  
+✅ Now routing uses:
+```js
+slug = document ID
+$post.$id for navigation
+
+src/
+ ├── appwrite/
+ │   └── config.js
+ ├── components/
+ │   ├── PostCard.jsx
+ │   ├── Post_Form.jsx
+ │   ├── Input.jsx
+ │   ├── Button.jsx
+ │   ├── Select.jsx
+ │   └── RTE.jsx
+ ├── pages/
+ │   ├── Home.jsx
+ │   ├── Post.jsx
+ │   ├── AddPost.jsx
+ │   └── EditPost.jsx
+ └── store/
+     ├── authSlice.js
+     └── store.js
+🎯 Summary
+
+This project was a complete learning experience — from debugging schemas, fixing permissions, and handling slugs to making images display perfectly.
+Now, Inkwrite is stable, clean, and production-ready 🚀
+
+👨‍💻 Author
+
+Waqas Ali
+Full-Stack Developer (MERN + Appwrite)
